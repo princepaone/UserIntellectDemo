@@ -1,0 +1,178 @@
+{
+	"info": {
+		"name": "USER Positive Tests",
+		"_postman_id": "bc3c7519-9764-6efa-fae3-1d7c405a6fb4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/user/create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain userId\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.userId).length > 0 ;\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"postman.setEnvironmentVariable(\"createdUserId\", pm.expect(pm.response.json().userId));\r",
+							"\r",
+							"pm.test(\"Response Message validation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.resMsg).to.eql(\"User created successfully\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1234%&23\",\r\n    \"fName\" : \"John\",\r\n    \"lName\" : \"Smith\",\r\n    \"email\" : \"ppp@gmail.com\",\r\n    \"pinCode\" : 123456,\r\n    \"birthDate\" : \"02-MAR-1993\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"create"
+					]
+				},
+				"description": "POST Create User"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain userId\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.userId).length > 0 ;\r",
+							"     pm.expect(jsonData.resMsg).to.eql(\"User details successfully updated\");\r",
+							"    \r",
+							"});\r",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"",
+							"    "
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"V635C455J\",\n    \"fName\": \"John\",\n    \"lName\": \"Smith\",\n    \"email\": \"John@gmail.com\",\n    \"pinCode\": 518003,\n    \"birthDate\": \"26-DEC-1992\",\n    \"active\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				},
+				"description": "Update User positive tests"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/X9MU0SQVI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response validation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.userId).length > 0 ;\r",
+							"     pm.expect(jsonData.resMsg).to.eql(\"User is deactivated\");\r",
+							"    \r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/user/V635C455J",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"V635C455J"
+					]
+				},
+				"description": "Delete User positive tests"
+			},
+			"response": []
+		}
+	]
+}

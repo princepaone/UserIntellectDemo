@@ -1,0 +1,159 @@
+{
+	"info": {
+		"name": "USER Negative Tests",
+		"_postman_id": "ff744253-907c-e71c-0a7c-e3a1d3a6cf8b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Message validation for future birthdate\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.resMsg).to.eql(\"Invalid birthdate.Birthdate should be in format dd-MMM-YYYY and must be past date\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1234%&23\",\r\n    \"fName\" : \"John\",\r\n    \"lName\" : \"Smith\",\r\n    \"email\" : \"ppp@gmail.com\",\r\n    \"pinCode\" : 123456,\r\n    \"birthDate\" : \"02-MAR-2020\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"create"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is expected when user does not exists\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Message validation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.resMsg).to.eql(\"User not found.\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fName\": \"John\",\n    \"lName\": \"Smith\",\n    \"email\": \"John@gmail.com\",\n    \"pinCode\": 518003,\n    \"birthDate\": \"26-DEC-2059\",\n    \"active\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/INVALID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"response is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response validation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.resMsg).to.eql(\"User not found.\");\r",
+							"    \r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/api/user/INVALID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"INVALID"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
